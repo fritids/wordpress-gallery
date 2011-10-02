@@ -1,0 +1,90 @@
+<?php
+
+class wordpress_gallery_display extends wordpress_gallery_file_upload_class{
+
+
+	function wordpress_gallery_display(){
+		$this->__construct();
+	}
+	
+	function __construct(){ 
+		
+		$this->display_the_gallery();
+	
+	}
+	
+	function display_the_gallery(){ 
+	
+		?>
+		<script type="text/javascript">
+		jQuery(document).ready(function() {
+		    jQuery('#wordpress_gallery').cycle({
+				fx: '<?php echo get_option('trans_type'); ?>',
+				speed: <?php echo get_option('trans_time'); ?>,
+				width: <?php echo get_option('image_size_x'); ?>,
+				height: <?php echo get_option('image_size_y'); ?>
+			});
+		    jQuery('#wordpress_gallery a').lightBox();
+		});
+		</script>		
+		<?php
+	
+		if(get_option('jealous_library') != ''){	
+	
+			$library =  explode(',', get_option('jealous_library'));
+		
+			$images = array();
+			
+			rsort($library);
+			
+			array_pop($library);			
+				
+			foreach($library as $item){
+			
+				$file_type = wp_check_filetype(basename($this->file_dir), null );
+				
+				$meta = $this->get_all_meta($item);			
+								
+				$images[] = $item;
+	
+			}
+			
+			$bucket = get_option( 'bucket_name' );
+			
+			if(get_option( 'enable_lightbox' ) == 'yes'){
+				$lightbox = TRUE;
+			}else{
+				$lightbox = FALSE;
+			}			
+			
+			echo "<div id=\"wordpress_gallery\">";
+						
+			foreach($images as $image){
+			
+				$meta = $this->get_all_meta($image);
+			  
+			    if(get_option('use_s3') == 'true'){ 
+			    	if($lightbox){echo "<a href=\"http://".$bucket.".s3.amazonaws.com/".$meta['orig_image']."\">";}
+				    echo "<img src=\"http://".$bucket.".s3.amazonaws.com/".$meta['wordpress_gallery']."\" alt=\"".$meta['orig_image']."\" />";
+				    if($lightbox){echo "</a>";}
+				}else{
+					if($lightbox){
+						$img_src = wp_get_attachment_image_src( $image, 'full' );
+						echo "<a href=\"".$img_src[0]."\">";
+					}
+					echo wp_get_attachment_image( $image, 'wordpress_gallery' ); 
+					if($lightbox){echo "</a>";}
+					
+				}
+													
+			}
+			
+			echo "</div>";
+			
+		}					
+	
+	}
+
+}
+
+?>

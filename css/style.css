@@ -1,0 +1,47 @@
+#s3_settings{
+	margin-top:20px;
+}
+.wordpress_gallery_settings label{
+	width:150px;
+	float:left;
+	font-weight: bold;
+}
+.wordpress_gallery_settings .imgedit-submit-btn{
+	margin-left:0px;
+}
+.wordpress_gallery_library_item{
+	border: 1px solid #DDDDDD;
+	float: left;
+	padding: 10px;
+	text-align: center;
+	width:170px; 
+	height:220px; 
+	margin:5px;
+	word-wrap: break-word;
+}
+.wordpress_gallery_library_item img{
+	border: 1px solid #eeeeee;
+	padding: 3px;
+	background: #ffffff;
+}
+.wordpress_gallery_library_item input{
+    bottom: 0;
+    left: 0;
+    margin-left: 0;
+    margin-top: 5px;
+    position: relative;
+}
+.tooltip {
+	display:none;
+	background:#333;;
+	font-size:12px;
+/* 	height:70px; */
+	width:160px;
+	padding:25px;
+	color:#fff;	
+	z-index: 99999;
+}
+#trans_time_slider{
+	width:400px;
+	float:left;
+}
