@@ -28,6 +28,11 @@ class wordpress_gallery_settings_page{
 				postboxes.add_postbox_toggles('gallery_settings');
 				$(".help[title]").tooltip();
 				$("#trans_time").slider({ from: 500, to: 5000, step: 50, round: 1, dimension: 'MS', skin: "round" });
+				
+				showhidepagercontents();
+				
+				showhidethumbnailsize();
+				
 			});			
 			//]]>
 		</script>	
@@ -131,8 +136,39 @@ class wordpress_gallery_settings_page{
 			<option <?php if(get_option('hard_crop') == 'true'){echo "selected=\"selected\"";} ?> value="true">Yes</option>
 			<option <?php if(get_option('hard_crop') == 'false'){echo "selected=\"selected\"";} ?> value="false">No</option>
 		</select>
-		<img class="help" title="Enabling hard crop will force all images uploaded to be exactly the dimensions you specify above. <br><br>If not enabled images will keep their proportions and will be cropped to fit within the dimensions specified above.<br><br>Changing this option will not change previously uploaded images." src="<?php echo WJG_url; ?>/img/info.png" />		
-
+		<img class="help" title="Enabling hard crop will force all images uploaded to be exactly the dimensions you specify above. <br><br>If not enabled images will keep their proportions and will be cropped to fit within the dimensions specified above.<br><br>Changing this option will not change previously uploaded images." src="<?php echo WJG_url; ?>/img/info.png" />
+		
+		<br><br>
+		
+		<label>Enable pager: </label>	
+		<select name="show_pager" onChange="showhidepagercontents();" id="show_pager">
+			<option <?php if(get_option('show_pager') == 'true'){echo "selected=\"selected\"";} ?> value="true">Yes</option>
+			<option <?php if(get_option('show_pager') == 'false'){echo "selected=\"selected\"";} ?> value="false">No</option>
+		</select>
+		<img class="help" title="A pager is..." src="<?php echo WJG_url; ?>/img/info.png" />
+		
+		<div id="pager_contents">
+		
+			<br><br>	
+		
+			<label>Pager contents: </label>	
+			<select name="pager_contents" onChange="showhidethumbnailsize();" id="pager_contents_select">
+				<option <?php if(get_option('pager_contents') == 'nothing'){echo "selected=\"selected\"";} ?> value="nothing">Nothing</option>
+				<option <?php if(get_option('pager_contents') == 'numbers'){echo "selected=\"selected\"";} ?> value="numbers">Numbers</option>
+				<option <?php if(get_option('pager_contents') == 'thumbnails'){echo "selected=\"selected\"";} ?> value="thumbnails">Thumbnails</option>
+			</select>
+			<img class="help" title="A pager is..." src="<?php echo WJG_url; ?>/img/info.png" />
+		
+		</div>
+		
+		<div id="thumbnailsizes">
+		
+			<br><br>
+			
+			<label>Thumbnail size: </label>
+			Height: <input type="text" size="3" name="thumbnailsize_height" value="<?php echo get_option('thumbnailsize_height'); ?>" /> Width: <input type="text" size="3" name="thumbnailsize_width" value="<?php echo get_option('thumbnailsize_width'); ?>" />
+		
+		</div>
 	
 	<?php }	
 	
@@ -156,6 +192,10 @@ class wordpress_gallery_settings_page{
 		update_option('image_size_y', $_POST['image_size_y']); 
 		update_option('enable_lightbox', $_POST['enable_lightbox']); 
 		update_option('hard_crop', $_POST['hard_crop']);
+		update_option('show_pager', $_POST['show_pager']);
+		update_option('pager_contents', $_POST['pager_contents']);
+		update_option('thumbnailsize_height', $_POST['thumbnailsize_height']);
+		update_option('thumbnailsize_width', $_POST['thumbnailsize_width']);
 		
 		echo '<div class="updated">Settings Updated!</div>';
 	

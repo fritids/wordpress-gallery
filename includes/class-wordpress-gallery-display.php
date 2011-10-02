@@ -19,12 +19,26 @@ class wordpress_gallery_display extends wordpress_gallery_file_upload_class{
 		<script type="text/javascript">
 		jQuery(document).ready(function() {
 		    jQuery('#wordpress_gallery').cycle({
+				<?php if(get_option('show_pager') == 'true'){ 
+					echo 'pager: \'#pager\',';
+				} 
+				if(get_option('pager_contents') == 'thumbnails'){ ?>
+				pagerAnchorBuilder: function(idx, slide) {
+					var img = jQuery(slide).children().eq(0).attr("src");
+					return '<a class="wpg-thumbnail" href="#"><img src="' + img + '" width="<?php echo get_option('thumbnailsize_width'); ?>" height="<?php echo get_option('thumbnailsize_height'); ?>" /></a>';
+				},
+				<?php } ?>
 				fx: '<?php echo get_option('trans_type'); ?>',
 				speed: <?php echo get_option('trans_time'); ?>,
 				width: <?php echo get_option('image_size_x'); ?>,
 				height: <?php echo get_option('image_size_y'); ?>
 			});
+			
 		    jQuery('#wordpress_gallery a').lightBox();
+			
+			<?php if(get_option('pager_contents') == 'nothing'){ ?>
+				jQuery('#pager a').html('');
+			<?php } ?>			    
 		});
 		</script>		
 		<?php
@@ -80,6 +94,12 @@ class wordpress_gallery_display extends wordpress_gallery_file_upload_class{
 			}
 			
 			echo "</div>";
+			
+			if(get_option('show_pager') == 'true'){ 
+			
+				echo '<div id="pager"></div>';
+			
+			}
 			
 		}					
 	
