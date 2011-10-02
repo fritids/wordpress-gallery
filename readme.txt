@@ -4,7 +4,7 @@ Donate link: http://jealousdesigns.co.uk
 Tags: gallery, image, slideshow, S3, amazon, jquery, galleries, 
 Requires at least: 3.0
 Tested up to: 3.1.3
-Stable tag: 0.41
+Stable tag: 0.5
 
 WordPress gallery provides a simple interface for uploading images, editing them and having them displayed on the front end of your site.
 
@@ -18,6 +18,7 @@ The front end gallery can be configured in the following ways-
 * Transition effect.
 * Transition time.
 * Optional lightbox effect to original image.
+* Choose whether or not to display a "pager" which can contain nothing (just empty squares), numbers or thumbnails. Thumbnail sizes are configurable.
 
 Uploading images is done through a simple interface that allows you to upload multiple images at once (only limited by your server's execution time and maximum file size). You can then edit the image to adjust crop, scale and rotation. Any changes you make to an image can be easily reverted back to the original image at any time.
 
@@ -63,6 +64,10 @@ No. This plugin is currently for images only.
 
 Yes and yes. The shortcode was [gallery] and that can still be used if you don't have any problems with it. Another shortcode [wp-gallery] was added to get rid of problems caused by [gallery] shortcode.
 
+= Can I show thumbnails of the images in my gallery? =
+
+Yes. As of version 0.5 you can do this by going to Gallery -> Settings then selecting "Enable pager" then in the drop down that appears select "Thumbnails" and then in the next drop down select the sizes you would like your thumbnails to be. They will be included after the gallery.
+
 == Screenshots ==
 
 1. The main admin page which shows options to add a new image and view and edit images currently in the gallery.
@@ -71,6 +76,10 @@ Yes and yes. The shortcode was [gallery] and that can still be used if you don't
 4. The new menu item is conveniently placed below your current Media menu item.
 5. The main settings page.
 6. A plethora of options are available for the transitions between images.
+7. Choose the type of pager and how it is displayed.
+8. The gallery using thumbnails in the pager.
+9. The gallery using numbers in the pager.
+10. The gallery using the "nothing" option for the pager.
 
 == Changelog ==
 
@@ -83,6 +92,9 @@ Yes and yes. The shortcode was [gallery] and that can still be used if you don't
 = 0.41 =
 * Added an extra shortcode as there is a conflict with the default gallery short code. Users can now use [wp-gallery] as well as [gallery] :-)
 
+= 0.5 =
+* WordPress Gallery now supports the pager effect and can be configured to show blank shapes, numbers or thumbnails.
+
 == Upgrade Notice ==
 
 = 0.1 =
@@ -92,3 +104,7 @@ First release so no update
 = 0.41 =
 
 Extra shortcode [wp-gallery] added for users having compatibility problems with [gallery]
+
+= 0.5 =
+
+WordPress Gallery now supports the pager effect and can be configured to show blank shapes, numbers or thumbnails.
