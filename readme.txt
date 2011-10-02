@@ -4,7 +4,7 @@ Donate link: http://jealousdesigns.co.uk
 Tags: gallery, image, slideshow, S3, amazon, jquery, galleries, 
 Requires at least: 3.0
 Tested up to: 3.1.3
-Stable tag: 0.5
+Stable tag: 0.5.1
 
 WordPress gallery provides a simple interface for uploading images, editing them and having them displayed on the front end of your site.
 
@@ -95,6 +95,9 @@ Yes. As of version 0.5 you can do this by going to Gallery -> Settings then sele
 = 0.5 =
 * WordPress Gallery now supports the pager effect and can be configured to show blank shapes, numbers or thumbnails.
 
+= 0.5.1 =
+* Added helpful info buttons. :-)
+
 == Upgrade Notice ==
 
 = 0.1 =
@@ -108,3 +111,7 @@ Extra shortcode [wp-gallery] added for users having compatibility problems with 
 = 0.5 =
 
 WordPress Gallery now supports the pager effect and can be configured to show blank shapes, numbers or thumbnails.
+
+= 0.5.1 =
+
+WordPress Gallery now supports the pager effect and can be configured to show blank shapes, numbers or thumbnails. Also added helpful info buttons. :-)

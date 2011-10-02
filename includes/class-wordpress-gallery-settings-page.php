@@ -145,7 +145,7 @@ class wordpress_gallery_settings_page{
 			<option <?php if(get_option('show_pager') == 'true'){echo "selected=\"selected\"";} ?> value="true">Yes</option>
 			<option <?php if(get_option('show_pager') == 'false'){echo "selected=\"selected\"";} ?> value="false">No</option>
 		</select>
-		<img class="help" title="A pager is..." src="<?php echo WJG_url; ?>/img/info.png" />
+		<img class="help" title="The pager enables functionality for viewers of the gallery to see what slide they are on and to switch manually switch to another." src="<?php echo WJG_url; ?>/img/info.png" />
 		
 		<div id="pager_contents">
 		
@@ -157,7 +157,7 @@ class wordpress_gallery_settings_page{
 				<option <?php if(get_option('pager_contents') == 'numbers'){echo "selected=\"selected\"";} ?> value="numbers">Numbers</option>
 				<option <?php if(get_option('pager_contents') == 'thumbnails'){echo "selected=\"selected\"";} ?> value="thumbnails">Thumbnails</option>
 			</select>
-			<img class="help" title="A pager is..." src="<?php echo WJG_url; ?>/img/info.png" />
+			<img class="help" title="Nothing:<br>Just show some empty squares which will show the current position and allo the user to click to another. Basic css is applied but to style further target #pager a{} and #pager a.activeSlide{}. <br><br>Numbers:<br>Show numbers inside the boxes. Also clickable.<br><br>Thumbnails:<br>Show thumbnails of the slides and allow viewers to click on them." src="<?php echo WJG_url; ?>/img/info.png" />
 		
 		</div>
 		
