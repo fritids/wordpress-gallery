@@ -4,7 +4,7 @@ Donate link: http://jealousdesigns.co.uk
 Tags: gallery, image, slideshow, S3, amazon, jquery, galleries, 
 Requires at least: 3.0
 Tested up to: 3.1.3
-Stable tag: 0.5.1
+Stable tag: 0.6
 
 WordPress gallery provides a simple interface for uploading images, editing them and having them displayed on the front end of your site.
 
@@ -19,6 +19,7 @@ The front end gallery can be configured in the following ways-
 * Transition time.
 * Optional lightbox effect to original image.
 * Choose whether or not to display a "pager" which can contain nothing (just empty squares), numbers or thumbnails. Thumbnail sizes are configurable.
+* Order the images by dragging them.
 
 Uploading images is done through a simple interface that allows you to upload multiple images at once (only limited by your server's execution time and maximum file size). You can then edit the image to adjust crop, scale and rotation. Any changes you make to an image can be easily reverted back to the original image at any time.
 
@@ -68,6 +69,10 @@ Yes and yes. The shortcode was [gallery] and that can still be used if you don't
 
 Yes. As of version 0.5 you can do this by going to Gallery -> Settings then selecting "Enable pager" then in the drop down that appears select "Thumbnails" and then in the next drop down select the sizes you would like your thumbnails to be. They will be included after the gallery.
 
+= How do I order the images? =
+
+When in the Gallery section simply drag the images in to the order you want.
+
 == Screenshots ==
 
 1. The main admin page which shows options to add a new image and view and edit images currently in the gallery.
@@ -98,6 +103,9 @@ Yes. As of version 0.5 you can do this by going to Gallery -> Settings then sele
 = 0.5.1 =
 * Added helpful info buttons. :-)
 
+= 0.6 =
+* Added ability to drag the images to define the front end dispel order.
+
 == Upgrade Notice ==
 
 = 0.1 =
@@ -115,3 +123,7 @@ WordPress Gallery now supports the pager effect and can be configured to show bl
 = 0.5.1 =
 
 WordPress Gallery now supports the pager effect and can be configured to show blank shapes, numbers or thumbnails. Also added helpful info buttons. :-)
+
+= 0.6 =
+
+Added ability to drag the images to define the front end dispel order.
