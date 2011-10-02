@@ -142,6 +142,15 @@ class wordpress_gallery_file_upload_class{
 				$this->process_image();	 ?>
 			
 				<form name="" id="wordpress_gallery_submit_edit" method="POST" action="<?php echo admin_url( 'admin.php?page=gallery' ); ?>">
+					<table class="linktable slidetoggle describe form-table">
+					
+						<tr class="url">
+							<th valign="top" scope="row" class="label"><label for="link"><span class="alignleft">Link URL</span><br class="clear"></label></th>
+							<?php $imagelink = get_post_meta($this->attach_id, 'link'); ?>
+							<td class="field"><input type="text" class="text" id="link" name="link" value="<?php echo $imagelink[0]; ?>"><p class="help">Enter a URL to link this image to.</p></td>
+						</tr>					
+					
+					</table>
 				
 					<input type="hidden" name="id" value="<?php echo $this->attach_id; ?>" />
 										
@@ -169,6 +178,7 @@ class wordpress_gallery_file_upload_class{
 						    success: function(result){
 								jQuery("#ajax_result").html(result);
 								jQuery('#media-head-<?php echo $this->attach_id; ?>').fadeOut('slow', function(){jQuery('#media-head-<?php echo $this->attach_id; ?>').remove()});
+								jQuery('.linktable').fadeOut('slow', function(){jQuery('.linktable').remove()});
 								jQuery('#submit_image_upload_button_edit').fadeOut('slow', function(){jQuery('#submit_image_upload_button_edit').remove()});
 								jQuery('#image-editor-<?php echo $this->attach_id; ?>').fadeOut('slow', function(){jQuery('#image-editor-<?php echo $this->attach_id; ?>').remove()});
 						      	jQuery("#wordpress_gallery_library").html('<img src="<?php echo WJG_url.'/img/ajax-loader.gif'; ?>" />');
@@ -257,6 +267,16 @@ class wordpress_gallery_file_upload_class{
 						<form name="submit_image_upload" id="submit_image_upload-<?php echo $this->attach_id; ?>" method="POST" action="<?php echo admin_url( 'admin.php?page=gallery' ); ?>">
 						
 							<input type="hidden" name="id" value="<?php echo $this->attach_id; ?>" />
+							
+								<table class="slidetoggle describe form-table">
+								
+									<tr class="url">
+										<th valign="top" scope="row" class="label"><label for="link"><span class="alignleft">Link URL</span><br class="clear"></label></th>
+										<?php $imagelink = get_post_meta($this->attach_id, 'link'); ?>
+										<td class="field"><input type="text" class="text" id="link" name="link" value="<?php echo $imagelink[0]; ?>"><p class="help">Enter a URL to link this image to.</p></td>
+									</tr>					
+								
+								</table>							
 												
 							<input type="submit" class="button-primary imgedit-submit-btn" id="submit_image_upload_button-<?php echo $this->attach_id; ?>" name="" value="Upload and add to gallery" style="margin-top:5px;"/>		
 						
@@ -280,6 +300,7 @@ class wordpress_gallery_file_upload_class{
 								    success: function(result){
 										jQuery("#ajax_result-<?php echo $this->attach_id; ?>").html(result);
 										jQuery('#media-head-<?php echo $this->attach_id; ?>').fadeOut('slow', function(){jQuery('#media-head-<?php echo $this->attach_id; ?>').remove()});
+										jQuery('.linktable').fadeOut('slow', function(){jQuery('.linktable').remove()});
 										jQuery('#submit_image_upload_button-<?php echo $this->attach_id; ?>').fadeOut('slow', function(){jQuery('#submit_image_upload_button-<?php echo $this->attach_id; ?>').remove()});
 										jQuery('#imgedit-response-<?php echo $this->attach_id; ?>').fadeOut('slow', function(){jQuery('#imgedit-response-<?php echo $this->attach_id; ?>').remove()});
 								      	jQuery("#wordpress_gallery_library").html('<img src="<?php echo WJG_url.'/img/ajax-loader.gif'; ?>" />');
@@ -395,7 +416,9 @@ class wordpress_gallery_file_upload_class{
 	
 	
 	function upload_the_images($files){
-		
+	
+		update_post_meta($this->attach_id, 'link', $_POST['link']);
+			
 		global $current_blog;
 	
 		include_once('class-s3.php'); 
@@ -489,7 +512,34 @@ class wordpress_gallery_file_upload_class{
 	    return $result;
 	}	
 	
-	function show_library(){
+	function show_library(){ ?>
+	
+		<script>
+		$(function() {
+			jQuery( "#wordpress_gallery_images" ).sortable({
+   				stop: function(event, ui) {
+   					var order = '';
+   					jQuery('.wordpress_gallery_library_item').each(function(index){
+   						if(order == ''){
+   							order = jQuery(this).attr('rel');
+   						}else{
+   							order = order + ',' + jQuery(this).attr('rel');
+   						}
+   					});
+					jQuery.ajax({
+						url: '<?php echo WJG_url; ?>/functions/update_order.php?load=<?php echo ABSPATH; ?>&order=' + order,
+					  	success: function(data) {
+					    	$('#order_result').html(data);
+					  	}
+					});
+   					jQuery('#order_result').fadeOut(3000, function(){jQuery('#order_result').html('<br>').show();});
+   				}
+			});
+			jQuery( "#wordpress_gallery_images" ).disableSelection();
+		});
+		</script>	
+	
+		<?php
 	
 		include_once('class-s3.php'); 
 	
@@ -500,10 +550,6 @@ class wordpress_gallery_file_upload_class{
 			$library =  explode(',', get_option('jealous_library'));
 		
 			$images = array();
-			
-			rsort($library);
-			
-			array_pop($library);			
 				
 			foreach($library as $item){
 			
@@ -515,13 +561,15 @@ class wordpress_gallery_file_upload_class{
 	
 			}
 			
-			echo "<h2>IMAGES</h2>";
+			echo "<br><em>Drag to order the images.</em><br><div id=\"order_result\"><br></div>";
+			
+			echo '<div id="wordpress_gallery_images">';
 			
 			foreach($images as $image){
 			
 				$meta = $this->get_all_meta($image);
 				
-			  	echo "<div class=\"wordpress_gallery_library_item\">";
+			  	echo "<div class=\"wordpress_gallery_library_item\" rel=\"" . $image . "\">";
 			  
 			    if($this->use_s3){ 
 				    echo "<img src=\"http://".$this->awsBucket.".s3.amazonaws.com/".$meta['100x100']."\" alt=\"".$meta['orig_image']."\" /><br>"; 					
@@ -529,7 +577,13 @@ class wordpress_gallery_file_upload_class{
 					echo wp_get_attachment_image( $image, '100x100' )."<br>"; 
 					
 				}
-				echo end(explode('/', $meta['100x100'])) . "<br>";
+				$imagelink = get_post_meta($image, 'link');
+				
+				if($imagelink[0] != ''){
+					echo end(explode('/', $meta['100x100'])) . "<br><em>Linked to " . $imagelink[0] . '</em><br>';
+				}else{
+					echo end(explode('/', $meta['100x100'])) . '<br><em>Not linked</em><br>';
+				}
 			    
 			    ?>
 			    
@@ -560,6 +614,8 @@ class wordpress_gallery_file_upload_class{
 			
 			}
 			
+			echo '</div>';
+			
 			echo '<div style="clear:both;"></div>';
 		
 		}	
@@ -576,20 +632,18 @@ class wordpress_gallery_file_upload_class{
 		$form_fields['buttons'] = array(
 			'input' => 'hidden'
 		);
-		/*
-	$form_fields['s3url'] = array(
-			'input' => 'text',
-			'value' => 'http://'.$jealous_file_upload_class->awsBucket.'.s3.amazonaws.com/'. $current_blog->blog_id.'/'.$jealous_file_upload_class->file_name,
-			'label' => '<strong>Amazon S3 file URL</strong>: ',
-			'name' => 's3_original_url'
-		);	
-	*/
-		//unset($form_fields['url'], $form_fields['align'], $form_fields['image-size'], $form_fields['post_content'], $form_fields['post_title'], $form_fields['image_alt']);	
+/*
+		$form_fields['url'] = array(
+			'label'      => __('Link URL'),
+			'input'      => 'html',
+			'helps'      => __('Enter a link URL or click above for presets.')
+		);
+*/
 		return $form_fields;
 	}
 	
 	function jealous_gallery_fields_to_save($post, $attatchment ) {
-			
+
 	}	
 	
 }

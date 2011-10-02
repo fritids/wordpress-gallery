@@ -34,7 +34,7 @@ class wordpress_gallery_display extends wordpress_gallery_file_upload_class{
 				height: <?php echo get_option('image_size_y'); ?>
 			});
 			
-		    jQuery('#wordpress_gallery a').lightBox();
+		    jQuery('#wordpress_gallery a.lightbox').lightBox();
 			
 			<?php if(get_option('pager_contents') == 'nothing'){ ?>
 				jQuery('#pager a').html('');
@@ -47,11 +47,7 @@ class wordpress_gallery_display extends wordpress_gallery_file_upload_class{
 	
 			$library =  explode(',', get_option('jealous_library'));
 		
-			$images = array();
-			
-			rsort($library);
-			
-			array_pop($library);			
+			$images = array();		
 				
 			foreach($library as $item){
 			
@@ -76,18 +72,26 @@ class wordpress_gallery_display extends wordpress_gallery_file_upload_class{
 			foreach($images as $image){
 			
 				$meta = $this->get_all_meta($image);
-			  
+				
+				$imagelink = get_post_meta($image, 'link');
+			  	
 			    if(get_option('use_s3') == 'true'){ 
-			    	if($lightbox){echo "<a href=\"http://".$bucket.".s3.amazonaws.com/".$meta['orig_image']."\">";}
+			    	if($lightbox){
+			    		echo "<a href=\"http://".$bucket.".s3.amazonaws.com/".$meta['orig_image']."\" class=\"lightbox\">";
+			    	}elseif($imagelink[0] != ''){
+			    		echo '<a href="' . $imagelink[0] . '" />';
+			    	}
 				    echo "<img src=\"http://".$bucket.".s3.amazonaws.com/".$meta['wordpress_gallery']."\" alt=\"".$meta['orig_image']."\" />";
-				    if($lightbox){echo "</a>";}
+				    if($lightbox || $imagelink[0] != ''){echo "</a>";}
 				}else{
 					if($lightbox){
 						$img_src = wp_get_attachment_image_src( $image, 'full' );
-						echo "<a href=\"".$img_src[0]."\">";
-					}
+						echo "<a href=\"".$img_src[0]."\" class=\"lightbox\">";
+					}elseif($imagelink[0] != ''){
+			    		echo '<a href="' . $imagelink[0] . '" />';
+			    	}
 					echo wp_get_attachment_image( $image, 'wordpress_gallery' ); 
-					if($lightbox){echo "</a>";}
+					if($lightbox || $imagelink[0] != ''){echo "</a>";}
 					
 				}
 													
