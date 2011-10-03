@@ -4,7 +4,7 @@ Donate link: http://jealousdesigns.co.uk
 Tags: gallery, image, slideshow, S3, amazon, jquery, galleries, 
 Requires at least: 3.0
 Tested up to: 3.1.3
-Stable tag: 0.6
+Stable tag: 0.6.1
 
 WordPress gallery provides a simple interface for uploading images, editing them and having them displayed on the front end of your site.
 
@@ -105,6 +105,10 @@ When in the Gallery section simply drag the images in to the order you want.
 
 = 0.6 =
 * Added ability to drag the images to define the front end dispel order.
+
+= 0.6.1 =
+
+Fixed bug with update_order.php working
 
 == Upgrade Notice ==
 
