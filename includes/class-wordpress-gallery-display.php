@@ -68,6 +68,12 @@ class wordpress_gallery_display extends wordpress_gallery_file_upload_class{
 			}			
 			
 			echo "<div id=\"wordpress_gallery\">";
+			
+			if(get_option( 'random_order' ) == 'true'){
+			
+				shuffle($images);
+			
+			}
 						
 			foreach($images as $image){
 			

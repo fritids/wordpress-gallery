@@ -161,6 +161,13 @@ class wordpress_gallery_settings_page{
 		
 		</div>
 		
+		<label>Randomise images? </label>	
+		<select name="random_order" id="random_order">
+			<option <?php if(get_option('random_order') == 'true'){echo "selected=\"selected\"";} ?> value="true">Yes</option>
+			<option <?php if(get_option('random_order') == 'false'){echo "selected=\"selected\"";} ?> value="false">No</option>
+		</select>
+		<img class="help" title="Use this to randomise the order of your images. Useful if you are displaying the gallery on multiple pages." src="<?php echo WJG_url; ?>/img/info.png" />
+		
 		<div id="thumbnailsizes">
 		
 			<br><br>
@@ -196,6 +203,7 @@ class wordpress_gallery_settings_page{
 		update_option('pager_contents', $_POST['pager_contents']);
 		update_option('thumbnailsize_height', $_POST['thumbnailsize_height']);
 		update_option('thumbnailsize_width', $_POST['thumbnailsize_width']);
+		update_option('random_order', $_POST['random_order']);
 		
 		echo '<div class="updated">Settings Updated!</div>';
 	
