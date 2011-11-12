@@ -4,7 +4,7 @@ Donate link: http://jealousdesigns.co.uk
 Tags: gallery, image, slideshow, S3, amazon, jquery, galleries, 
 Requires at least: 3.0
 Tested up to: 3.1.3
-Stable tag: 0.6.1
+Stable tag: 0.7
 
 WordPress gallery provides a simple interface for uploading images, editing them and having them displayed on the front end of your site.
 
