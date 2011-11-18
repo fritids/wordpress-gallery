@@ -17,6 +17,7 @@ class wordpress_gallery_admin_page{
 		add_meta_box(	'gallery_meta_box_s3_library', __('Library'), array( &$this, 'library_box_content' ), 'gallery', 'side', 'core');
 		
 		wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
+		
 		wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );					
 		
 		?>
@@ -25,7 +26,7 @@ class wordpress_gallery_admin_page{
 			//<![CDATA[
 			jQuery(document).ready( function($) {
 				$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
-				postboxes.add_postbox_toggles('gallery');
+				//postboxes.add_postbox_toggles('gallery');
 			});			
 			//]]>
 		</script>		

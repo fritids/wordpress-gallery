@@ -31,7 +31,9 @@ class wordpress_gallery_display extends wordpress_gallery_file_upload_class{
 				fx: '<?php echo get_option('trans_type'); ?>',
 				speed: <?php echo get_option('trans_time'); ?>,
 				width: <?php echo get_option('image_size_x'); ?>,
-				height: <?php echo get_option('image_size_y'); ?>
+				height: <?php echo get_option('image_size_y'); ?>,
+				timeout: <?php echo get_option('timeout'); ?>,
+				pause: <?php echo get_option('pause'); ?>
 			});
 			
 		    jQuery('#wordpress_gallery a.lightbox').lightBox();

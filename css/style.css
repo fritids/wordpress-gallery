@@ -41,7 +41,7 @@
 	color:#fff;	
 	z-index: 99999;
 }
-#trans_time_slider{
+#trans_time_slider, #timeout_slider{
 	width:400px;
 	float:left;
 }

@@ -24,10 +24,16 @@ class wordpress_gallery_settings_page{
 		<script type="text/javascript" charset="utf-8">
 			//<![CDATA[
 			jQuery(document).ready( function($) {
+			
 				$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+				
 				postboxes.add_postbox_toggles('gallery_settings');
+				
 				$(".help[title]").tooltip();
+				
 				$("#trans_time").slider({ from: 500, to: 5000, step: 50, round: 1, dimension: 'MS', skin: "round" });
+				
+				$("#timeout").slider({ from: 1000, to: 10000, step: 100, round: 1, dimension: 'MS', skin: "round" });
 				
 				showhidepagercontents();
 				
@@ -118,6 +124,20 @@ class wordpress_gallery_settings_page{
 
 		<div id="trans_time_slider">
 			<input id="trans_time" type="slider" name="trans_time" value="<?php if(get_option('trans_time') !=''){echo get_option('trans_time');}else{echo "1000";} ?>" />
+			<br>
+			<img class="help" title="The speed of the transition." src="<?php echo WJG_url; ?>/img/info.png" />
+		</div>
+		
+		<br style="clear:both;"><br>
+		
+		<br><br>
+		
+		<label>Display time: </label>
+
+		<div id="timeout_slider">
+			<input id="timeout" type="slider" name="timeout" value="<?php if(get_option('timeout') !=''){echo get_option('timeout');}else{echo "4000";} ?>" />
+			<br>
+			<img class="help" title="The time each image is displayed on screen." src="<?php echo WJG_url; ?>/img/info.png" />
 		</div>
 		
 		<br style="clear:both;"><br>
@@ -161,6 +181,17 @@ class wordpress_gallery_settings_page{
 		
 		</div>
 		
+		<br><br>
+		
+		<div id="thumbnailsizes">
+			
+			<label>Thumbnail size: </label>
+			Height: <input type="text" size="3" name="thumbnailsize_height" value="<?php echo get_option('thumbnailsize_height'); ?>" /> Width: <input type="text" size="3" name="thumbnailsize_width" value="<?php echo get_option('thumbnailsize_width'); ?>" />
+			
+			<br><br>
+		
+		</div>
+		
 		<label>Randomise images? </label>	
 		<select name="random_order" id="random_order">
 			<option <?php if(get_option('random_order') == 'true'){echo "selected=\"selected\"";} ?> value="true">Yes</option>
@@ -168,14 +199,14 @@ class wordpress_gallery_settings_page{
 		</select>
 		<img class="help" title="Use this to randomise the order of your images. Useful if you are displaying the gallery on multiple pages." src="<?php echo WJG_url; ?>/img/info.png" />
 		
-		<div id="thumbnailsizes">
+		<br><br>
 		
-			<br><br>
-			
-			<label>Thumbnail size: </label>
-			Height: <input type="text" size="3" name="thumbnailsize_height" value="<?php echo get_option('thumbnailsize_height'); ?>" /> Width: <input type="text" size="3" name="thumbnailsize_width" value="<?php echo get_option('thumbnailsize_width'); ?>" />
-		
-		</div>
+		<label>Pause on hover? </label>	
+		<select name="pause" id="pause">
+			<option <?php if(get_option('pause') == 'true'){echo "selected=\"selected\"";} ?> value="true">Yes</option>
+			<option <?php if(get_option('pause') == 'false'){echo "selected=\"selected\"";} ?> value="false">No</option>
+		</select>
+		<img class="help" title="This will pause the slider when a user hovers over it." src="<?php echo WJG_url; ?>/img/info.png" />
 	
 	<?php }	
 	
@@ -195,6 +226,7 @@ class wordpress_gallery_settings_page{
 		update_option('s3_bucket_name', $_POST['s3_bucket_name']); 
 		update_option('trans_type', $_POST['trans_type']);
 		update_option('trans_time', $_POST['trans_time']); 
+		update_option('timeout', $_POST['timeout']); 
 		update_option('image_size_x', $_POST['image_size_x']); 
 		update_option('image_size_y', $_POST['image_size_y']); 
 		update_option('enable_lightbox', $_POST['enable_lightbox']); 
@@ -204,6 +236,7 @@ class wordpress_gallery_settings_page{
 		update_option('thumbnailsize_height', $_POST['thumbnailsize_height']);
 		update_option('thumbnailsize_width', $_POST['thumbnailsize_width']);
 		update_option('random_order', $_POST['random_order']);
+		update_option('pause', $_POST['pause']);
 		
 		echo '<div class="updated">Settings Updated!</div>';
 	

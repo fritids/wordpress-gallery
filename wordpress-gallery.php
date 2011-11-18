@@ -5,18 +5,20 @@ Plugin Name: WordPress Gallery
 Description: Upload, edit and present images in a gallery via a shortcode.
 Author: Jealous Designs
 Author URI: http://wordpressgallery.co.uk
-Version: 0.7
+Version: 0.7.1
 */
 
 register_activation_hook( __FILE__, 'activate_wordpress_gallery' );
 
 function activate_wordpress_gallery(){
 	update_option('trans_type', 'fade');
+	update_option('timeout', '4000');
 	update_option('trans_time', '1000'); 
 	update_option('image_size_x', '500'); 
 	update_option('image_size_y', '400'); 
 	update_option('enable_lightbox', 'yes'); 
 	update_option('hard_crop', 'true');
+	update_option('pause', 'false');
 }
 
 if (!defined("WJG_url")) { define("WJG_url", WP_PLUGIN_URL.'/wordpress-gallery'); } //NO TRAILING SLASH
