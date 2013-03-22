@@ -1,10 +1,10 @@
 === WordPress Gallery ===
 Contributors: jealousdesigns
 Donate link: http://jealousdesigns.co.uk
-Tags: gallery, image, slideshow, S3, amazon, jquery, galleries, 
+Tags: gallery, image, slideshow, S3, amazon, jquery, galleries,
 Requires at least: 3.0
 Tested up to: 3.1.3
-Stable tag: 0.8
+Stable tag: 1.4
 
 WordPress gallery provides a simple interface for uploading images, editing them and having them displayed on the front end of your site.
 
@@ -110,6 +110,18 @@ When in the Gallery section simply drag the images in to the order you want.
 
 Fixed bug with update_order.php working
 
+= 0.9 =
+
+*Updated lightbox script that now uses a GPL compatible license
+
+= 1.3 =
+
+*Updated to use colorbox instead of lightbox2
+
+= 1.4 = 
+
+*Fixed error with displaying images
+
 == Upgrade Notice ==
 
 = 0.1 =
@@ -132,10 +144,22 @@ WordPress Gallery now supports the pager effect and can be configured to show bl
 
 Added ability to drag the images to define the front end dispel order.
 
-= 0.7.1 = 
+= 0.7.1 =
 
 Added the option to randomise the order of images. Useful if you are displaying the gallery on multiple pages
 
 = 0.8 =
 
 Added display time and pause on hover options
+
+= 0.9 =
+
+Updated lightbox script that now uses a GPL compatible license
+
+= 1.3 =
+
+Updated to use colorbox instead of lightbox2
+
+= 1.4 = 
+
+Fixed error with displaying images
